@@ -1,0 +1,39 @@
+/* body {
+  background-color: pink;
+} */
+
+.desktop {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 800px;
+  align-items: center;
+}
+
+.contain {
+  border: 1px solid black;
+  display: flex;
+  width: 408px;
+  height: 408px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.carre {
+  color: red;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+    border: 1px solid black;
+}
+.carre1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+}
+.carre2 {
+  position: absolute;
+  top: 0px;
+  left: 100px;
+}
