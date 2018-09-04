@@ -9,32 +9,30 @@ $comp = 0;
 $count = count($TInitial);
 
 $Tnew = array();
-$action = 'test';
-$action = $_GET['action'];
-// var_dump($action);
 
-if (empty($action)) {
-  $action = "Afficher" ;
-}
 
-if ($action == "display" ) {
-  $action = 'trier';
-  $text = 'trier';
-
-  $Tnew = trie($TInitial);
-
-} else {
-  $action = 'display';
-  $text = "Afficher";
-
-  // display($Tnew);
-}
 
 ?>
+
+<p>Tableau non trier : <br>
+<?php
+foreach ($TInitial AS $value) {
+  print $value. '     ';
+}
+?>
+</p>
+
 <form action="http://taquin.test/index.php" method="post">
-  <input type="hidden" name="action" value="<?php echo $action; ?>">
-  <button type="submit"><?php echo $text ;?></button>
+  <input type="hidden" name="action" value="trier">
+  <button type="submit">trier</button>
 </form>
+
+
+<form action="http://taquin.test/index.php" method="post">
+  <input type="hidden" name="action" value="afficher">
+  <button type="submit">afficher</button>
+</form>
+
 
 
 <?php
