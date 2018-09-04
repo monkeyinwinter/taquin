@@ -1,20 +1,16 @@
-/* body {
-  background-color: pink;
-} */
-
 .desktop {
   width: 100%;
   display: flex;
   justify-content: center;
-  height: 800px;
+  height: 400px;
   align-items: center;
 }
 
 .contain {
   border: 1px solid black;
   display: flex;
-  width: 408px;
-  height: 408px;
+  width: 300px;
+  height: 300px;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -22,18 +18,61 @@
 .carre {
   color: red;
   position: absolute;
+  text-align: center;
   width: 100px;
   height: 100px;
-    border: 1px solid black;
 }
-.carre1 {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+#carre1 {
+  background-color: rgba(225, 225, 225, 0.4);
+}
+#carre2 {
+  background-color: rgba(225, 225, 225, 0.5);
 
 }
-.carre2 {
-  position: absolute;
-  top: 0px;
-  left: 100px;
+#carre3 {
+  background-color: rgba(225, 225, 225, 0.6);
+}
+#carre4 {
+  background-color: rgba(225, 225, 225, 0.7);
+}
+
+#carre5 {
+  background-color: rgba(225, 225, 200, 0.4);
+}
+#carre6 {
+  background-color: rgba(225, 225, 200, 0.5);
+}
+#carre7 {
+  background-color: rgba(225, 225, 200, 0.6);
+}
+#carre8 {
+  background-color: rgba(225, 225, 200, 0.7);
+}
+
+#carre9 {
+  background-color: rgba(225, 225, 180, 0.4);
+}
+#carre10 {
+  background-color: rgba(225, 225, 180, 0.5);
+}
+#carre11 {
+  background-color: rgba(225, 225, 180, 0.6);
+}
+#carre12 {
+  background-color: rgba(225, 225, 180, 0.7);
+}
+
+#carre13 {
+  background-color: rgba(225, 225, 150, 0.4);
+}
+#carre14 {
+  background-color: rgba(225, 225, 150, 0.5);
+}
+#carre15 {
+  background-color: rgba(225, 225, 150, 0.6);
+}
+
+#carre16 {
+  background-color: green;
+  color: black;
 }

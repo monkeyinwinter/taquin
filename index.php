@@ -1,66 +1,67 @@
 <?php
 
-$TInitial = array(9,5,4,6,3,1,2,8,7);
+include 'function.php';
 
-$temp = 0;
-$swap = 0;
-$comp = 0;
+$display = '';
 
-$count = count($TInitial);
+if (isset($_GET['action'])) {
+  $action = $_GET['action'];
 
-$Tnew = array();
+} else {
+  $action ='';
+}
 
+if (isset($_GET['stringtableau'])) {
+  $TResult = explode("-", $_GET['stringtableau']);
 
+} else {
+  $TResult ='';
+}
+
+if (empty($action)) {
+  $action = 'afficher';
+}
+if ($action == 'trier') {
+  $TInitial = $TResult;
+
+  $display = 'show';
+  $action = 'melanger';
+}
+
+elseif ($action == 'afficher') {
+  $TResult = trie($TInitial);
+  $stringTResult = implode("-" , $TResult);
+  $action = 'trier';
+}
+
+elseif ($action == 'melanger') {
+  $TResult = trie($TInitial);
+  $stringTResult = implode("-" , $TResult);
+  $action = 'trier';
+}
 
 ?>
 
-<p>Tableau non trier : <br>
+<form action="http://taquin.test/index.php" method="get">
+  <input type="hidden" name="stringtableau" value="<?php echo $stringTResult?>">
+  <input type="hidden" name="action" value="<?php echo $action?>">
+  <button type="submit"><?php echo $action?></button>
+</form>
+
 <?php
-foreach ($TInitial AS $value) {
-  print $value. '     ';
+if ($display == '') {
+?>
+  <p>Tableau non trier : <br>
+<?php
+  include 'display.php';
 }
 ?>
 </p>
 
-<form action="http://taquin.test/index.php" method="post">
-  <input type="hidden" name="action" value="trier">
-  <button type="submit">trier</button>
-</form>
-
-
-<form action="http://taquin.test/index.php" method="post">
-  <input type="hidden" name="action" value="afficher">
-  <button type="submit">afficher</button>
-</form>
-
-
-
 <?php
-function trie ($data) {
-  global $temp;
-  global $count;
-  global $swap;
-  global $comp;
-  for ($i = 0 ; $i < $count ; $i++) {
-
-    for ($j = $i+1 ; $j < $count ; $j++) {
-      $comp ++;
-      if ($data[$i] > $data[$j]) {
-        $temp = $data[$i];
-        $data[$i] = $data[$j];
-        $data[$j] = $temp;
-        $swap ++;
-      }
-    }
-  }
-  return $data;
+if ($display == 'show') {
+  ?>
+  <p>Tableau triè : <br>
+  <?php
+  include 'display.php';
 }
-
-// function display ($data) {
-//   print $data;
-// }
-//
-// print 'le nombre de comparaison est de ' .$comp. '<br>';
-// print 'le nombre de swap est de ' .$swap. '<br>';
-//
-// var_dump($TInitial);
