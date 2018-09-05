@@ -2,7 +2,10 @@
 
 include 'function.php';
 
-$display = '';
+
+
+//$TInitial1 = swap1($TInitial1);//fonction 1d
+$TInitial = swap2($TInitial);//fonction 2d
 
 if (isset($_GET['action'])) {
   $action = $_GET['action'];
@@ -21,47 +24,38 @@ if (isset($_GET['stringtableau'])) {
 if (empty($action)) {
   $action = 'afficher';
 }
-if ($action == 'trier') {
-  $TInitial = $TResult;
 
-  $display = 'show';
+if ($action == 'trier') {
+  //$TInitial1 = trie($TInitial1);//fonction en 1d
+  //$TInitial = fct_array_merge($TInitial);//fct à virer car pas terrible
+  // $TInitial = trie1($TInitial);//fonction en 1d
+  //$TInitial = trie2($TInitial);//fonction en 2d
+  $TInitial = sortTable($TInitial);
+  //$TInitial = fct_array_chunk($TInitial);//fct à virer car pas terrible
   $action = 'melanger';
 }
 
 elseif ($action == 'afficher') {
-  $TResult = trie($TInitial);
-  $stringTResult = implode("-" , $TResult);
   $action = 'trier';
+  //$TInitial1 = swap1($TInitial1);//fonction en 1d
+  $TInitial = swap2($TInitial);//fonction en 2d
 }
 
 elseif ($action == 'melanger') {
-  $TResult = trie($TInitial);
-  $stringTResult = implode("-" , $TResult);
+  //$TInitial1 = swap1($TInitial1);//fonction en 1d
+  $TInitial = swap2($TInitial);//fonction en 2d
   $action = 'trier';
 }
 
 ?>
 
 <form action="http://taquin.test/index.php" method="get">
-  <input type="hidden" name="stringtableau" value="<?php echo $stringTResult?>">
+
   <input type="hidden" name="action" value="<?php echo $action?>">
   <button type="submit"><?php echo $action?></button>
 </form>
 
-<?php
-if ($display == '') {
-?>
-  <p>Tableau non trier : <br>
-<?php
-  include 'display.php';
-}
-?>
-</p>
 
-<?php
-if ($display == 'show') {
-  ?>
-  <p>Tableau triè : <br>
   <?php
-  include 'display.php';
-}
+  //include 'display1.php';
+  include 'display2.php';

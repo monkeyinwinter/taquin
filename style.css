@@ -27,52 +27,27 @@
 }
 #carre2 {
   background-color: rgba(225, 225, 225, 0.5);
-
 }
 #carre3 {
   background-color: rgba(225, 225, 225, 0.6);
 }
-#carre4 {
-  background-color: rgba(225, 225, 225, 0.7);
-}
 
-#carre5 {
+#carre4 {
   background-color: rgba(225, 225, 200, 0.4);
 }
-#carre6 {
+#carre5 {
   background-color: rgba(225, 225, 200, 0.5);
 }
-#carre7 {
+#carre6 {
   background-color: rgba(225, 225, 200, 0.6);
 }
-#carre8 {
-  background-color: rgba(225, 225, 200, 0.7);
-}
 
-#carre9 {
+#carre7 {
   background-color: rgba(225, 225, 180, 0.4);
 }
-#carre10 {
+#carre8 {
   background-color: rgba(225, 225, 180, 0.5);
 }
-#carre11 {
+#carre9 {
   background-color: rgba(225, 225, 180, 0.6);
-}
-#carre12 {
-  background-color: rgba(225, 225, 180, 0.7);
-}
-
-#carre13 {
-  background-color: rgba(225, 225, 150, 0.4);
-}
-#carre14 {
-  background-color: rgba(225, 225, 150, 0.5);
-}
-#carre15 {
-  background-color: rgba(225, 225, 150, 0.6);
-}
-
-#carre16 {
-  background-color: green;
-  color: black;
 }
