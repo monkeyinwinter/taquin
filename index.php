@@ -63,7 +63,8 @@ elseif ($action == 'afficher') {
 
 elseif ($action == 'melanger') {
   echo 'melanger';
-  // $TInitial = rand2($TInitial);
+  $TInitial = rand2($TInitial);
+
   // echo '<br>';
   // var_dump($TInitial);
 

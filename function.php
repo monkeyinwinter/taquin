@@ -549,315 +549,40 @@ function newtri2d ($TInitial)
 {
   global $temp;
   global $TSolution;
-  // print_r ($TInitial);
-  // exit;
-  echo '<br>fct newtri2d';
-  $compteur = 0;
-  $swap = 0;
-  $swapLoupe = 0;
+  $test = 0;
 
-  // while ($TInitial != $TSolution)
-  // {
-
-    $compteur++;
+  while ($TInitial != $TSolution)
+  {
+    // if($test >= 2000000)
+    // {
+    //   break;
+    // }
 
     for( $Y = 0 ; $Y < count($TInitial) ; $Y++)//ou se trouve le zero
     {
       for( $X = 0 ; $X < count($TInitial) ; $X++)
       {
-        if ($TInitial[$Y][$X] == 0) {
+        if ($TInitial[$Y][$X] == 0)
+        {
           $origin_Y = $Y;
           $origin_X = $X;
         }
       }
     }
 
-    if ( $origin_X == 0 AND $origin_Y == 0)///si position 1
-    {
-      echo '1';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,1);
-        if ($choix == 0 AND $origin_X != $origin_X+1)//vers la droite
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-          $TInitial[$origin_Y][$origin_X+1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_Y != $origin_Y+1)//vers le bas
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-          $TInitial[$origin_Y+1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 1 AND $origin_Y == 0)///si position 2
-    {
-      echo '2';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,2);
-        if ($choix == 0 AND $origin_X != $origin_X+1)//vers la droite
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-          $TInitial[$origin_Y][$origin_X+1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_Y != $origin_Y+1)//vers le bas
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-          $TInitial[$origin_Y+1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 2 AND $origin_X != $origin_X-1)//vers la gauche
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-          $TInitial[$origin_Y][$origin_X-1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 2 AND $origin_Y == 0)///si position 3
-    {
-      echo '3';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,1);
-        if ($choix == 0 AND $origin_Y != $origin_Y+1)//vers le bas
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-          $TInitial[$origin_Y+1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_X != $origin_X-1)//vers la gauche
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-          $TInitial[$origin_Y][$origin_X-1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 0 AND $origin_Y == 1)///si position 4
-    {
-      echo '4';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,2);
-        if ($choix == 0 AND $origin_X != $origin_X+1)//vers la droite
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-          $TInitial[$origin_Y][$origin_X+1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_Y != $origin_Y+1)//vers le bas
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-          $TInitial[$origin_Y+1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 2 AND $origin_Y != $origin_Y-1)//vers le haut
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-          $TInitial[$origin_Y-1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 1 AND $origin_Y == 1)///si position 5
-    {
-      echo '5';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,3);
-        if ($choix == 0 AND $origin_X != $origin_X+1)//vers la droite
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-          $TInitial[$origin_Y][$origin_X+1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_Y != $origin_Y+1)//vers le bas
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-          $TInitial[$origin_Y+1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 2 AND $origin_X != $origin_X-1)//vers la gauche
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-          $TInitial[$origin_Y][$origin_X-1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 3 AND $origin_Y != $origin_Y-1)//vers le haut
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-          $TInitial[$origin_Y-1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 2 AND $origin_Y == 1)///si position 6
-    {
-      echo '6';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,2);
-        if ($choix == 0 AND $origin_Y != $origin_Y+1)//vers le bas
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-          $TInitial[$origin_Y+1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_X != $origin_X-1)//vers la gauche
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-          $TInitial[$origin_Y][$origin_X-1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 2 AND $origin_Y != $origin_Y-1)//vers le haut
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-          $TInitial[$origin_Y-1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 0 AND $origin_Y == 2)///si position 7
-    {
-      echo '7';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,1);
-        if ($choix == 0 AND $origin_X != $origin_X+1)//vers la droite
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-          $TInitial[$origin_Y][$origin_X+1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_Y != $origin_Y-1)//vers le haut
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-          $TInitial[$origin_Y-1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 1 AND $origin_Y == 2)///si position 8
-    {
-      echo 'case 8';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,2);
-        if ($choix == 0 AND $origin_X != $origin_X+1)//vers la droite
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-          $TInitial[$origin_Y][$origin_X+1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_X != $origin_X-1)//vers la gauche
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-          $TInitial[$origin_Y][$origin_X-1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 2 AND $origin_Y != $origin_Y-1)//vers le haut
-        {
-          $temp = $TInitial[$origin_Y][$origin_X];
-          $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-          $TInitial[$origin_Y-1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    }
-    elseif ( $origin_X == 2 AND $origin_Y == 2)///si position 9
-    {
-      echo '<br>case 9<br>';
-      $valider = 0;
-      while ($valider == 0) {
-        $swapLoupe++;
-        $choix = rand(0,1);
-        if ($choix == 0 AND $origin_X != $origin_X-1)//vers la gauche
-        {
+    $TPosition =  MvtPossible ($TInitial, $origin_Y, $origin_X);
+    // print_r($TPosition);
 
-          $testfct = gauche ($TInitial , $origin_X , $origin_Y);
-          var_dump($testfct);
-          // $temp = $TInitial[$origin_Y][$origin_X];
-          // $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-          // $TInitial[$origin_Y][$origin_X-1] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-        if ($choix == 1 AND $origin_Y != $origin_Y-1)//vers le haut
-        {
-
-          $testfct = haut ($TInitial , $origin_X , $origin_Y);
-          var_dump($testfct);
-          // $temp = $TInitial[$origin_Y][$origin_X];
-          // $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-          // $TInitial[$origin_Y-1][$origin_X] = $temp;
-          $valider = 1;
-          $swap++;
-        }
-      }
-    // }
+    for ($i = 0 ; $i < count($TPosition) ; $i++)
+    {
+      // echo '<br>$TPosition : ' .$TPosition[$i]. '<br>';
+      $TPosition[$i]($TInitial , $origin_X , $origin_Y);
+    }
+    newtri2d ($TInitial);
 
 
-  }
+  }//FIN DE WHILE
 
-  echo '<br>nbr de tour pour trouver : ' .$compteur;
-  echo '<br>nbr de swap pour trouver : ' .$swap;
-  echo '<br>nbr de swap loupés : ' .$swapLoupe;
   return $TInitial;
 }
 
