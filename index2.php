@@ -25,7 +25,7 @@ for( $X = 0 ; $X < $count ; $X++)
 }
 
 echo '<br> APRÈS : ';
-print_r ($TSolution);//FIN TRI PAR SELECTION
+print_r ($TSolution);//FIN TRI PAR INSERTION
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -63,24 +63,21 @@ $TSolution3 = array(1,8,7,5,4,6,3,2,9);
 echo '<br><br>TRI RAPIDE<BR>AVANT : ';//TRI RAPIDE
 print_r ($TSolution3);
 
+$resultat = tri_rapide($TSolution3);
+
 function tri_rapide($TTemp)
 {
-	// find array size
 	$longueur = count($TTemp);
 
-	// base case test, if array of length 0 then just return array to caller
 	if($longueur <= 1){
 		return $TTemp;
 	}
 	else{
 
-		// select an item to act as our pivot point, since list is unsorted first position is easiest
 		$pivot = $TTemp[0];
 
-		// declare our two arrays to act as partitions
 		$gauche = $droite = array();
 
-		// loop and compare each item in the array to the pivot value, place item in appropriate partition
 		for($i = 1; $i < count($TTemp); $i++)
 		{
 			if($TTemp[$i] < $pivot){
@@ -91,12 +88,12 @@ function tri_rapide($TTemp)
 			}
 		}
 
-		// use recursion to now sort the left and right lists
 		return array_merge(tri_rapide($gauche), array($pivot), tri_rapide($droite));
 	}
 }
 
-$resultat = tri_rapide($TSolution3);
 
 echo '<br> APRÈS : ';
-print_r($resultat);
+print_r($resultat);//FIN TRI RAPIDE
+
+////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,5 @@
 <?php
+set_time_limit ( 300 );
 
 include 'function.php';
 
@@ -30,7 +31,7 @@ if (empty($action)) {
 }
 
 if ($action == 'trier') {
-  echo 'trier';
+  // echo 'trier';
   //$TInitial1 = trie($TInitial1);//fonction en 1d
   //$TInitial = fct_array_merge($TInitial);//fct à virer car pas terrible
   // $TInitial = trie1($TInitial);//fonction en 1d
@@ -45,10 +46,13 @@ if ($action == 'trier') {
     $TInitial = explode("-" , $_GET['tableau']);
     $TInitial = array_chunk($TInitial, 3);
     // var_dump($TInitial);
+    bfs($TInitial);
+    // dfs($TInitial, 0, '');
     // echo 'eerer';
   }
 
-  $TInitial = newtri2d($TInitial);
+
+  // $TInitial = newtri2d($TInitial);
 
   $action = 'afficher';
 }
@@ -63,7 +67,7 @@ elseif ($action == 'afficher') {
 
 elseif ($action == 'melanger') {
   echo 'melanger';
-  $TInitial = rand2($TInitial);
+  // $TInitial = rand2($TInitial);
 
   // echo '<br>';
   // var_dump($TInitial);

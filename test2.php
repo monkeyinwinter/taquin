@@ -1,56 +1,65 @@
 <?php
 
-function droite (&$TInitial , &$origin_X , &$origin_Y)
+function droite ($TData , $origin_Y, $origin_X)
 {
-  $temp = $TInitial[$origin_Y][$origin_X];
-  $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X+1];
-  $TInitial[$origin_Y][$origin_X+1] = $temp;
+    $temp = 0;
+  $temp = $TData[$origin_Y][$origin_X];
+  $TData[$origin_Y][$origin_X] = $TData[$origin_Y][$origin_X+1];
+  $TData[$origin_Y][$origin_X+1] = $temp;
+  return $TData;
 }
 
-function gauche (&$TInitial , &$origin_X , &$origin_Y)
+function gauche ($TData , $origin_Y, $origin_X)
 {
-  $temp = $TInitial[$origin_Y][$origin_X];
-  $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y][$origin_X-1];
-  $TInitial[$origin_Y][$origin_X-1] = $temp;
+    $temp = 0;
+  $temp = $TData[$origin_Y][$origin_X];
+  $TData[$origin_Y][$origin_X] = $TData[$origin_Y][$origin_X-1];
+  $TData[$origin_Y][$origin_X-1] = $temp;
+    return $TData;
 }
 
-function haut (&$TInitial , &$origin_X , &$origin_Y)
+function haut ($TData , $origin_Y,$origin_X)
 {
-  $temp = $TInitial[$origin_Y][$origin_X];
-  $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y-1][$origin_X];
-  $TInitial[$origin_Y-1][$origin_X] = $temp;
+    $temp = 0;
+  $temp = $TData[$origin_Y][$origin_X];
+  $TData[$origin_Y][$origin_X] = $TData[$origin_Y-1][$origin_X];
+  $TData[$origin_Y-1][$origin_X] = $temp;
+    return $TData;
 }
 
-function bas (&$TInitial , &$origin_X , &$origin_Y)
+function bas ($TData , $origin_Y, $origin_X)
 {
-  $temp = $TInitial[$origin_Y][$origin_X];
-  $TInitial[$origin_Y][$origin_X] = $TInitial[$origin_Y+1][$origin_X];
-  $TInitial[$origin_Y+1][$origin_X] = $temp;
+  $temp = 0;
+  $temp = $TData[$origin_Y][$origin_X];
+  $TData[$origin_Y][$origin_X] = $TData[$origin_Y+1][$origin_X];
+  $TData[$origin_Y+1][$origin_X] = $temp;
+    return $TData;
 }
 
-function MvtPossible ($TInitial, $origin_Y, $origin_X)
+function MvtPossible ($Tdata, $lastMvt, $origin_X, $origin_Y)
 {
-  $TPosition = array();
+  // echo '$origin_Y' . $origin_Y . '  $origin_X' .$origin_X;
+  $TResult = array();
 
-  if ($origin_Y > 0 AND $origin_Y != $origin_Y-1)//je suis en bas
+  if ($origin_Y > 0 AND $lastMvt != 'bas')//je suis en bas
   {
-    $TPosition[] = 'haut';
+    $TResult[] = 'haut';
   }
 
-  if ($origin_Y < 2 AND $origin_Y != $origin_Y+1)//je suis à en haut
+  if ($origin_Y < 2 AND $lastMvt != 'haut')//je suis à en haut
   {
-    $TPosition[] = 'bas';
+    $TResult[] = 'bas';
   }
 
-  if ($origin_X >= 0 AND $origin_X < 2 AND $origin_X != $origin_X-1)//je suis à gauche
+  if ($origin_X >= 0 AND $origin_X < 2 AND $lastMvt != 'gauche')//je suis à gauche
   {
-    $TPosition[] = 'droite';
+    $TResult[] = 'droite';
   }
 
-  if ($origin_X <= 2 AND $origin_X > 0 AND $origin_X != $origin_X+1)//je suis à droite
+  if ($origin_X <= 2 AND $origin_X > 0 AND $lastMvt != 'droite')//je suis à droite
   {
-    $TPosition[] = 'gauche';
+    $TResult[] = 'gauche';
   }
 
-  return $TPosition;
+  return $TResult;
 }

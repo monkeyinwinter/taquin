@@ -8,15 +8,15 @@ $temp = 0;
 $temp2d = array(array(0));
 
 $TSolution = array(//tableau 2d
-              array(1,2,3)
-              ,array(4,5,6)
-              ,array(7,8,0)
+              array('1','2','3')
+              ,array('4','5','6')
+              ,array('7','8','0')
             );
 
 $TInitial = array(//tableau 2d
-              array(1,2,3)
-              ,array(4,5,6)
-              ,array(7,8,0)
+              array(8,3,1)
+              ,array(7,0,4)
+              ,array(6,2,5)
             );
 
 $test = count($TInitial);//count du tableau 2d => 3 (soustableaux)
@@ -545,6 +545,88 @@ function rand2 ($TInitial)
 }
 
 
+function bfs($TInitialResult)
+{
+  global $TSolution;
+  $dernierMvt = '';
+  $TSave = array();
+
+  for( $Y = 0 ; $Y < count($TInitialResult) ; $Y++)//ou se trouve le zero
+  {
+    for( $X = 0 ; $X < count($TInitialResult) ; $X++)
+    {
+      if ($TInitialResult[$Y][$X] == 0)
+      {
+        $origin_Y = $Y;
+        $origin_X = $X;
+      }
+    }
+  }
+
+  $TMvtPossible = MvtPossible ($TInitialResult, $dernierMvt, $origin_X, $origin_Y);
+
+  for( $X = 0 ; $X < count($TMvtPossible) ; $X++)
+  {
+    array_push($TMvtPossible, $TMvtPossible[$X]);
+    print_r( $TMvtPossible);
+  }
+  exit;
+}
+
+
+$maxDepth = 85;
+$bestDepth = $maxDepth;
+
+function dfs($TInitialResult, $profondeur, $dernierMvt)
+{
+
+  global $TSolution;
+
+  for( $Y = 0 ; $Y < count($TInitialResult) ; $Y++)//ou se trouve le zero
+  {
+    for( $X = 0 ; $X < count($TInitialResult) ; $X++)
+    {
+      if ($TInitialResult[$Y][$X] == 0)
+      {
+        $origin_Y = $Y;
+        $origin_X = $X;
+      }
+    }
+  }
+
+  global $TInitial;
+  global $bestDepth;
+
+  if($profondeur > $bestDepth)
+  {
+    return false;
+  }
+
+  if($TInitialResult == $TSolution)
+  {
+    $bestDepth = $profondeur;
+    $TInitial = $TInitialResult;
+    return true;
+  }
+
+  $TMvtPossible = MvtPossible ($TInitialResult, $dernierMvt, $origin_X, $origin_Y);
+
+  for ($x = 0 ; $x < count($TMvtPossible) ; $x++)
+  {
+
+    $TInitialResult = $TMvtPossible[$x]($TInitialResult , $origin_Y , $origin_X);
+
+    if(dfs($TInitialResult, $profondeur+1, $TMvtPossible[$x])===true)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+
 function newtri2d ($TInitial)
 {
   global $temp;
@@ -553,33 +635,15 @@ function newtri2d ($TInitial)
 
   while ($TInitial != $TSolution)
   {
-    // if($test >= 2000000)
-    // {
-    //   break;
-    // }
 
-    for( $Y = 0 ; $Y < count($TInitial) ; $Y++)//ou se trouve le zero
-    {
-      for( $X = 0 ; $X < count($TInitial) ; $X++)
-      {
-        if ($TInitial[$Y][$X] == 0)
-        {
-          $origin_Y = $Y;
-          $origin_X = $X;
-        }
-      }
-    }
-
-    $TPosition =  MvtPossible ($TInitial, $origin_Y, $origin_X);
-    // print_r($TPosition);
+    $TPosition =  MvtPossible ($origin_Y, $origin_X);
 
     for ($i = 0 ; $i < count($TPosition) ; $i++)
     {
-      // echo '<br>$TPosition : ' .$TPosition[$i]. '<br>';
-      $TPosition[$i]($TInitial , $origin_X , $origin_Y);
-    }
-    newtri2d ($TInitial);
 
+      $TPosition[$i]($TInitial , $origin_X , $origin_Y);
+
+    }
 
   }//FIN DE WHILE
 
