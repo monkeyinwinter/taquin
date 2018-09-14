@@ -1,5 +1,5 @@
 <?php
-set_time_limit ( 300 );
+set_time_limit ( 20 );
 
 include 'function.php';
 
@@ -46,7 +46,7 @@ if ($action == 'trier') {
     $TInitial = explode("-" , $_GET['tableau']);
     $TInitial = array_chunk($TInitial, 3);
     // var_dump($TInitial);
-    bfs($TInitial);
+    $TInitial = bfs($TInitial, '');
     // dfs($TInitial, 0, '');
     // echo 'eerer';
   }

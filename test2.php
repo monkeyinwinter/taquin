@@ -1,6 +1,23 @@
 <?php
 
-function droite ($TData , $origin_Y, $origin_X)
+function where0($Tdata)
+{
+  $TPosition0 = array();
+  for( $Y = 0 ; $Y < count($Tdata) ; $Y++)//ou se trouve le zero
+  {
+    for( $X = 0 ; $X < count($Tdata) ; $X++)
+    {
+      if ($Tdata[$Y][$X] == 0)
+      {
+        $TPosition0[] = $Y;//= $origin_Y
+        $TPosition0[] = $X;//= $origin_X
+      }
+    }
+  }
+  return $TPosition0;
+}
+
+function d ($TData , $origin_Y, $origin_X)
 {
     $temp = 0;
   $temp = $TData[$origin_Y][$origin_X];
@@ -9,7 +26,7 @@ function droite ($TData , $origin_Y, $origin_X)
   return $TData;
 }
 
-function gauche ($TData , $origin_Y, $origin_X)
+function g ($TData , $origin_Y, $origin_X)
 {
     $temp = 0;
   $temp = $TData[$origin_Y][$origin_X];
@@ -18,7 +35,7 @@ function gauche ($TData , $origin_Y, $origin_X)
     return $TData;
 }
 
-function haut ($TData , $origin_Y,$origin_X)
+function h($TData , $origin_Y,$origin_X)
 {
     $temp = 0;
   $temp = $TData[$origin_Y][$origin_X];
@@ -27,7 +44,7 @@ function haut ($TData , $origin_Y,$origin_X)
     return $TData;
 }
 
-function bas ($TData , $origin_Y, $origin_X)
+function b ($TData , $origin_Y, $origin_X)
 {
   $temp = 0;
   $temp = $TData[$origin_Y][$origin_X];
@@ -36,30 +53,67 @@ function bas ($TData , $origin_Y, $origin_X)
     return $TData;
 }
 
-function MvtPossible ($Tdata, $lastMvt, $origin_X, $origin_Y)
+function MvtPossible ($Tdata, $lastMvt, $origin_Y, $origin_X)
 {
   // echo '$origin_Y' . $origin_Y . '  $origin_X' .$origin_X;
-  $TResult = array();
+  $Result = '';
 
-  if ($origin_Y > 0 AND $lastMvt != 'bas')//je suis en bas
+
+  if ($origin_Y > 0 AND $lastMvt != 'b')//je suis en bas
   {
-    $TResult[] = 'haut';
+    $Result= $Result .'h';
   }
 
-  if ($origin_Y < 2 AND $lastMvt != 'haut')//je suis à en haut
+  if ($origin_X >= 0 AND $origin_X < 2 AND $lastMvt != 'g')//je suis à gauche
   {
-    $TResult[] = 'bas';
+    $Result = $Result .'d';
   }
 
-  if ($origin_X >= 0 AND $origin_X < 2 AND $lastMvt != 'gauche')//je suis à gauche
+  if ($origin_Y < 2 AND $lastMvt != 'h')//je suis à en haut
   {
-    $TResult[] = 'droite';
+    $Result = $Result .'b';
   }
 
-  if ($origin_X <= 2 AND $origin_X > 0 AND $lastMvt != 'droite')//je suis à droite
+  if ($origin_X <= 2 AND $origin_X > 0 AND $lastMvt != 'd')//je suis à droite
   {
-    $TResult[] = 'gauche';
+    $Result = $Result .'g';
   }
 
-  return $TResult;
+  return $Result;
+}
+
+function removeLastMove ($Tdata, $origin_Y , $origin_X, $fctCall)
+{
+  if($fctCall == 'g')
+  {
+    d($Tdata , $origin_Y , $origin_X);
+  }
+  elseif($fctCall == 'd')
+  {
+    g($Tdata , $origin_Y , $origin_X);
+  }
+  elseif ($fctCall == 'h')
+  {
+    b($Tdata , $origin_Y , $origin_X);
+  }
+  elseif($fctCall == 'b')
+  {
+    h($Tdata , $origin_Y , $origin_X);
+  }
+  return $Tdata;
+}
+
+function winOrLoose ($TInitialResult, $TSolution)
+{
+  $ok = '';
+
+  if ($TInitialResult !== $TSolution)
+  {
+    $ok = 0;
+  }
+  else {
+    $ok = 1;
+  }
+
+  return $ok;
 }

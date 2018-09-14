@@ -14,9 +14,9 @@ $TSolution = array(//tableau 2d
             );
 
 $TInitial = array(//tableau 2d
-              array(8,3,1)
-              ,array(7,0,4)
-              ,array(6,2,5)
+              array(1,2,0)
+              ,array(4,5,3)
+              ,array(7,8,6)
             );
 
 $test = count($TInitial);//count du tableau 2d => 3 (soustableaux)
@@ -545,33 +545,164 @@ function rand2 ($TInitial)
 }
 
 
-function bfs($TInitialResult)
+$count = 0;
+$dernierMvt = '';
+$TQeue = array();
+$queue = '';
+$MvtPossible = '';
+
+function bfs($TInitialResult, $queue)
 {
+  global $queue;
+  global $count;
   global $TSolution;
-  $dernierMvt = '';
-  $TSave = array();
+  global $dernierMvt;
+  global $MvtPossible;
+  $win = '';
+  $Tdata = array();
 
-  for( $Y = 0 ; $Y < count($TInitialResult) ; $Y++)//ou se trouve le zero
-  {
-    for( $X = 0 ; $X < count($TInitialResult) ; $X++)
+  echo '<br>$queue au debut : ' .$queue;
+
+  $win = winOrLoose($TInitialResult, $TSolution);//on verifie si le taquin est gagné
+
+  // while($win != 1 || $count < 20)
+  // {
+
+    $TPosition0 = where0($TInitialResult);//on determine l emplacement du zero
+    $origin_Y = $TPosition0[0];
+    $origin_X = $TPosition0[1];
+
+    if($MvtPossible === '')
     {
-      if ($TInitialResult[$Y][$X] == 0)
-      {
-        $origin_Y = $Y;
-        $origin_X = $X;
-      }
+        $MvtPossible = MvtPossible ($TInitialResult, $dernierMvt, $origin_Y, $origin_X);//on determine les mvt possible
     }
-  }
+    else
+    {
+      $MvtPossible = $queue.MvtPossible($TInitialResult, $dernierMvt, $origin_Y, $origin_X);
+    }
+    echo '<br> $origin_Y debut : ' . $origin_Y;
+    echo '<br> $origin_X debut : ' . $origin_X;
+    echo '<br> $MvtPossible debut : '.$MvtPossible;
+    echo '<br>';
 
-  $TMvtPossible = MvtPossible ($TInitialResult, $dernierMvt, $origin_X, $origin_Y);
 
-  for( $X = 0 ; $X < count($TMvtPossible) ; $X++)
-  {
-    array_push($TMvtPossible, $TMvtPossible[$X]);
-    print_r( $TMvtPossible);
-  }
-  exit;
+    $MvtPossibles = str_split($MvtPossible);
+
+    foreach ($MvtPossibles as $MvtPossible)//on boucle sur le "tableau-string" des mvt possible
+    {
+      $fctMvtCall = $dernierMvt = $MvtPossible;//recuperation du mvt a appliquer
+
+      $Tdata = $fctMvtCall($TInitialResult , $origin_Y , $origin_X);//function qui fait le swap
+
+      $win = winOrLoose($Tdata, $TSolution);//on verifie si le taquin est gagné avec ce deplacement
+
+      if ($win == 1)//on verifie si le taquin est gagné et on sort de la fonction si c est gagné
+      {
+        $TInitialResult = $Tdata;
+
+        win($TInitialResult);
+
+        return $TInitialResult;
+
+      }
+      else {
+        $TPosition0 = where0($Tdata);//on determine le nouvel emplacement du zero
+        $origin_Y = $TPosition0[0];
+        $origin_X = $TPosition0[1];
+
+        $queue = $queue.$MvtPossible . MvtPossible ($Tdata, $dernierMvt, $origin_Y , $origin_X);//on determine les nouveaux mvt possible à partir du nouveau sommet
+
+        echo '<br> $origin_Y a la fin avec tdata: ' . $origin_Y;
+        echo '<br> $origin_X a la fin avec tdata : ' . $origin_X;
+        echo '<br> $queue apres le swap : ' .$queue;
+        // exit;
+        $count++;
+        echo'<br> $count à la fin : ' .$count;
+        echo '<br>queue a la fin : ' .$queue;
+        echo '<br>';
+        print_r($Tdata);
+        // exit;
+        bfs($Tdata, $queue);
+      }
+    }//fin de foreach
+  // }//fin de while
+
+
+  return $TInitialResult;
 }
+    //
+    function win($TInitialResult)
+    {
+      global $queue;
+      echo '<br> $queue'.$queue;
+      echo '<br>YES YOU WIN !!! PERFECT HAHAHAHA !!!';
+      print_r($TInitialResult);
+      return $TInitialResult;
+
+    }
+    // foreach($TMvtPossible as $dernierMvt=>$tab ){
+    //
+    //   $fctMvtCall = $dernierMvt;
+    //
+    //   $Tdata = $fctMvtCall($TInitialResult , $origin_Y , $origin_X);//function qui fait le swap
+    //
+    //   $win = winOrLoose($Tdata, $TSolution);//on verifie si le taquin est gagné avec ce deplacement
+    //
+    //   if ($win == 1)//on verifie si le taquin est gagné et on sort de la fonction si c est gagné
+    //   {
+    //     $TInitial = $Tdata;
+    //
+    //     echo '<br>YES YOU WIN !!! PERFECT HAHAHAHA !!!';
+    //     return $TInitial;
+    //   }
+    //
+    //   $TPosition0 = where0($Tdata);//on determine le nouvel emplacement du zero
+    //   $origin_Y = $TPosition0[0];
+    //   $origin_X = $TPosition0[1];
+    //   $TMvtPossible[$dernierMvt] = MvtPossible ($Tdata, $dernierMvt, $origin_Y , $origin_X);//on determine les nouveaux mvt possible à partir du nouveau sommet
+    //
+    //   removeLastMove ($Tdata, $origin_Y , $origin_X, $dernierMvt);//annule le swap pour determiner les nouveaux mvt possible en fct de l'emplacement du zero précédent
+    //
+    // }
+    // print_r($TMvtPossible);
+    // echo '<br>';
+
+
+// die();
+    // for( $X = 0 ; $X < count($TMvtPossible) ; $X++)//on boucle sur le tableau des mvt possible
+    // {
+    //   $fctMvtCall = $dernierMvt = $TMvtPossible[$X][$X];//recuperation du mvt a appliquer
+    //   var_dump($fctMvtCall);
+    //   echo '<br> $fctMvtCall : ' .$fctMvtCall;
+    //
+    //   $Tdata = $fctMvtCall($TInitialResult , $origin_Y , $origin_X);//function qui fait le swap
+    //   // var_dump($Tdata);
+    //   // echo '<br>';
+    //   $win = winOrLoose($Tdata, $TSolution);//on verifie si le taquin est gagné avec ce deplacement
+    //   // var_dump($win);
+    //   // echo '<br> win  : ' .$win;
+    //   if ($win == 1)//on verifie si le taquin est gagné et on sort de la fonction si c est gagné
+    //   {
+    //     $TInitial = $Tdata;
+    //
+    //     echo '<br>YES YOU WIN !!! PERFECT HAHAHAHA !!!';
+    //     return $TInitial;
+    //   }
+    //   // exit;
+    //
+    //   $TPosition0 = where0($Tdata);//on determine le nouvel emplacement du zero
+    //   $origin_Y = $TPosition0[0];
+    //   $origin_X = $TPosition0[1];
+    //
+    //   $TMvtPossible[$X][] = MvtPossible ($Tdata, $dernierMvt, $origin_Y , $origin_X);//on determine les nouveaux mvt possible à partir du nouveau sommet
+    //
+    //   removeLastMove ($Tdata, $origin_Y , $origin_X, $fctMvtCall);//annule le swap pour determiner les nouveaux mvt possible en fct de l'emplacement du zero précédent
+    //
+    //   $count++;
+    //
+    // }
+
+
 
 
 $maxDepth = 85;
